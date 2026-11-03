@@ -54,7 +54,7 @@ Render 免费 Web Service 空闲约 15 分钟后会休眠，重新访问可能�
 ## 素材与参考
 
 示例照片来自 Unsplash，不是用户私人照片；日期、标题为虚构演示数据。
-原始 8 张照片与其余 30 张来源见相邻原型目录 README 以及 public/assets/additional-sources.json。
+原始 8 张照片来源见 ASSETS.md，其余 30 张来源见 public/assets/additional-sources.json。
 Unsplash 授权：https://unsplash.com/license
 设计参考：https://github.com/mouse-lin/finesse-skill
 

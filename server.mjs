@@ -17,7 +17,7 @@ export function createServer() {
     if (!['GET','HEAD'].includes(req.method)) { res.setHeader('Allow','GET, HEAD'); return send(405,'Method not allowed'); }
     try {
       const path = decodeURIComponent(new URL(req.url,'http://localhost').pathname);
-      if (path === '/api/health') return send(200, JSON.stringify({status:'ok',app:'拾光',version:'1.0.0'}), 'application/json; charset=utf-8');
+      if (path === '/api/health') return send(200, JSON.stringify({status:'ok',app:'拾光',version:'1.0.1'}), 'application/json; charset=utf-8');
       const target = resolve(root, '.' + (path === '/' ? '/index.html' : path));
       const rel = relative(root,target);
       if (isAbsolute(rel) || rel.startsWith('..') || path.includes('\\') || path.includes('\0') || path.split('/').some(part => part.startsWith('.')) || !types[extname(target)]) return send(404,'Not found');

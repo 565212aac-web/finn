@@ -22,7 +22,7 @@ npm start
 ## Render 部署
 
 1. 把此目录内容提交到 GitHub 仓库根目录，包括 public、test、server.mjs、package.json、package-lock.json、render.yaml。
-2. Render Dashboard → New → Web Service，选择该仓库。
+2. Render Dashboard → New → Web Service，可使用 Public Git Repository 填入本仓库 URL；或者先连接 Git Provider 后选择仓库。
 3. Runtime: Node；Branch: main；Root Directory 留空。
 4. Build Command: `npm ci && npm run build && npm test`。
 5. Start Command: `npm start`。
@@ -39,7 +39,8 @@ npm start
 - 时光足迹：滚动前进、日期跳转、同一天多个时刻、暖色悬停。
 - 添加照片后刷新，仍显示新增照片，图片正常解码。
 - `/api/health` 返回 status=ok。
-- 修改一处文案并推送 GitHub，检查 Render 自动重新部署与线上更新。
+- 本次使用公开仓库 URL 创建服务，更新代码后选择 Manual Deploy → Deploy latest commit。实际已经验证版本从 1.0.0 更新到 1.0.1。
+- 可选：在 Render 连接并授权 Git Provider 后再启用提交后自动部署。公开仓库 URL 方式不会因推送自动更新，即使配置中存在 autoDeploy 字段。
 
 Render 免费 Web Service 空闲约 15 分钟后会休眠，重新访问可能需要约一分钟启动。课堂前提前打开应用。免费实例文件系统不持久，所以本项目不将照片写入服务器磁盘。
 
@@ -64,4 +65,5 @@ Unsplash 授权：https://unsplash.com/license
 - https://render.com/docs/blueprint-spec
 
 部署状态以实际 Render 结果为准；本地运行成功不等于公网部署成功。
+
 

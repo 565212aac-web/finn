@@ -9,7 +9,7 @@ test('health check works and HEAD has no body',async()=>{
   const head=await fetch(base+'/',{method:'HEAD'}); assert.equal(head.status,200); assert.equal(await head.text(),'');
 });
 test('approved interface and all 38 example photos are served',async()=>{
-  const response=await fetch(base+'/'); assert.match(await response.text(),/留下这一刻/);
+  const response=await fetch(base+'/'); assert.match(await response.text(),/Keep a Moment/);
   for(let i=0;i<38;i++) { const photo=await fetch(`${base}/assets/photo-${i}.jpg`); assert.equal(photo.status,200); assert.equal(photo.headers.get('content-type'),'image/jpeg'); assert.ok((await photo.arrayBuffer()).byteLength>1000); }
   for(const file of ['app.js','storage.js','style.css']) assert.equal((await fetch(base+'/'+file)).status,200);
 });

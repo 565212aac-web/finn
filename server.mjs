@@ -17,7 +17,7 @@ export function createServer() {
     if (!['GET','HEAD'].includes(req.method)) { res.setHeader('Allow','GET, HEAD'); return send(405,'Method not allowed'); }
     try {
       const path = decodeURIComponent(new URL(req.url,'http://localhost').pathname);
-      if (path === '/api/health') return send(200, JSON.stringify({status:'ok',app:'拾光',version:'1.0.1'}), 'application/json; charset=utf-8');
+      if (path === '/api/health') return send(200, JSON.stringify({status:'ok',app:'Shiguang',version:'1.1.0'}), 'application/json; charset=utf-8');
       const target = resolve(root, '.' + (path === '/' ? '/index.html' : path));
       const rel = relative(root,target);
       if (isAbsolute(rel) || rel.startsWith('..') || path.includes('\\') || path.includes('\0') || path.split('/').some(part => part.startsWith('.')) || !types[extname(target)]) return send(404,'Not found');
@@ -29,7 +29,7 @@ export function createServer() {
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const port = Number(process.env.PORT || 3101);
   const server = createServer();
-  server.listen(port,'0.0.0.0',()=>console.log(`拾光已启动，端口 ${port}`));
+  server.listen(port,'0.0.0.0',()=>console.log(`Shiguang listening on port ${port}`));
   const shutdown = () => server.close(()=>process.exit(0));
   process.on('SIGTERM',shutdown); process.on('SIGINT',shutdown);
 }

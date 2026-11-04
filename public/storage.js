@@ -7,7 +7,7 @@ window.momentStorage = (() => {
       request.onupgradeneeded = () => request.result.createObjectStore('moments',{keyPath:'id'});
       request.onsuccess = () => resolve(request.result);
       request.onerror = () => reject(request.error);
-      request.onblocked = () => reject(Error('请关闭其他拾光页面后重试。'));
+      request.onblocked = () => reject(Error('Please close other Shiguang tabs and try again.'));
     }).catch(error => { connection=null; throw error; });
   }
   return {
@@ -25,7 +25,7 @@ window.momentStorage = (() => {
         const tx = db.transaction('moments','readwrite');
         photos.forEach(photo => tx.objectStore('moments').add(photo));
         tx.oncomplete = () => resolve();
-        tx.onabort = () => reject(tx.error || Error('无法保存照片'));
+        tx.onabort = () => reject(tx.error || Error('Could not save photos'));
         tx.onerror = () => {}; // Abort reports the final outcome; no partial batch is committed.
       });
     }

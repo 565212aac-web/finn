@@ -1,5 +1,7 @@
 # 拾光 · 生活的私人放映室
 
+2026-11-04 更新：网站界面改为英文，版本 1.1.0。三页导航为 Keep a Moment、My Life、Time Trail；包含英文示例标题、日期、表单、提示与为英文调整的字号和间距。先前 PDF 教程保留部署时的中文截图，网站地址和部署流程不变。
+
 MECC1143 Cloud Computing — Group PaaS Tutorial Assignment。
 
 保留已确认的三页中文交互界面：留下这一刻、我的生活、时光足迹。
@@ -65,5 +67,4 @@ Unsplash 授权：https://unsplash.com/license
 - https://render.com/docs/blueprint-spec
 
 部署状态以实际 Render 结果为准；本地运行成功不等于公网部署成功。
-
 

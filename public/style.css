@@ -46,3 +46,112 @@
 }
 .wheel-card:focus-visible,.corridor-frame:focus-visible{border-color:var(--photo-warm-edge)}
 .wheel-card:focus-visible::after,.corridor-frame:focus-visible::after{opacity:1}
+
+/* English typography: short editorial lines, balanced with the existing photo spaces. */
+html[lang="en"]{--font:'Segoe UI',Arial,sans-serif;--serif:Georgia,'Times New Roman',serif}
+html[lang="en"] .brand{min-width:195px}
+html[lang="en"] .brand>span:last-child{font-size:27px;letter-spacing:.4px}
+html[lang="en"] .brand-sub{font-size:9px;letter-spacing:.7px}
+html[lang="en"] .header nav{gap:35px}
+html[lang="en"] .header nav a{font-size:13px;letter-spacing:.25px}
+html[lang="en"] .header-note{min-width:195px;letter-spacing:.3px;font-size:10px}
+html[lang="en"] .home-coordinate{letter-spacing:2.4px}
+html[lang="en"] .section-kicker{font-size:12px;letter-spacing:1px}
+html[lang="en"] .home-copy{max-width:48%;left:9vw}
+html[lang="en"] .home-copy h1{font-size:clamp(58px,5.7vw,88px);line-height:1.12;letter-spacing:-2.5px;margin:27px 0 23px;overflow-wrap:normal}
+html[lang="en"] .home-copy p{font-size:13px;line-height:1.9;letter-spacing:.1px;max-width:340px}
+html[lang="en"] .magnet-text strong{font-size:31px;line-height:1.18;letter-spacing:-.5px;padding:0;text-align:center}
+html[lang="en"] .magnet-text small{font-size:10px;letter-spacing:.15px;margin-top:15px}
+html[lang="en"] .magnet-coordinate{font-size:10px;letter-spacing:0;left:45px;right:12px}
+html[lang="en"] .home-bottom{left:9vw}
+html[lang="en"] .small-memories p{font-size:14px;letter-spacing:0;line-height:1.6}
+html[lang="en"] .home-footnote{left:9vw;font-size:11px;letter-spacing:.15px}
+html[lang="en"] .quiet-link,html[lang="en"] .quiet-button{font-size:12px;letter-spacing:.2px}
+html[lang="en"] .page-heading h1,html[lang="en"] .corridor-heading h1{font-size:46px;letter-spacing:-1px;line-height:1.15;overflow-wrap:normal}
+html[lang="en"] .page-heading>p,html[lang="en"] .corridor-heading p{font-size:12px;letter-spacing:.2px;line-height:1.8}
+html[lang="en"] .wheel-bottom-caption{left:20%;right:20%}
+html[lang="en"] .wheel-bottom-caption>span{font-size:21px;letter-spacing:.1px}
+html[lang="en"] .wheel-bottom-caption small{font-size:11px;letter-spacing:.4px}
+html[lang="en"] .wheel-card-caption strong{font-size:11px;letter-spacing:0;min-width:0;flex:1}
+html[lang="en"] .wheel-card-caption small{font-size:10px;flex-shrink:0}
+html[lang="en"] .wheel-status>span{font-size:11px;letter-spacing:.5px}
+html[lang="en"] .wheel-status small{font-size:9px;letter-spacing:.2px}
+html[lang="en"] .date-jump{min-width:240px}
+html[lang="en"] .date-jump label{font-size:11px;letter-spacing:.5px}
+html[lang="en"] .date-jump select{font-size:12px}
+html[lang="en"] .corridor-date>span{font-family:var(--serif);font-size:38px;letter-spacing:0}
+html[lang="en"] .corridor-date small{font-size:12px;letter-spacing:.5px}
+html[lang="en"] .corridor-date p{font-size:11px;letter-spacing:0}
+html[lang="en"] .corridor-frame .frame-caption strong{font-size:12px;letter-spacing:0;width:100%;max-width:none}
+html[lang="en"] .corridor-frame .frame-caption small{font-size:11px;letter-spacing:0}
+html[lang="en"] .frame-stamp small{font-size:9px;letter-spacing:0}
+html[lang="en"] .corridor-footer>span,html[lang="en"] .corridor-footer small{letter-spacing:0;font-size:10px}
+html[lang="en"] .scroll-invitation{font-size:11px;letter-spacing:.3px}
+html[lang="en"] .dialog-header{font-size:12px;letter-spacing:.4px}
+html[lang="en"] .upload-left h2{font-size:32px;letter-spacing:-.6px;line-height:1.2}
+html[lang="en"] .upload-left>p:not(.error){font-size:12px;letter-spacing:0}
+html[lang="en"] .drop-area strong{font-size:17px;letter-spacing:0}
+html[lang="en"] .drop-area>span:not(.upload-cross){font-size:12px;letter-spacing:0}
+html[lang="en"] .drop-area small{font-size:10px;letter-spacing:0}
+html[lang="en"] .example-button{font-size:12px;letter-spacing:0}
+html[lang="en"] .upload-form>label,html[lang="en"] .upload-form legend,html[lang="en"] .capture-fields label{font-size:12px;letter-spacing:0}
+html[lang="en"] .upload-form input:not([type="radio"]){font-size:12px;letter-spacing:0}
+html[lang="en"] .destination strong{font-size:13px;letter-spacing:0}
+html[lang="en"] .destination small{font-size:11px;letter-spacing:0}
+html[lang="en"] .save-button{font-size:13px;letter-spacing:.3px}
+html[lang="en"] .gentle-copy{font-size:11px;letter-spacing:0}
+html[lang="en"] .lightbox-caption h2{font-size:21px;letter-spacing:0}
+html[lang="en"] .lightbox-caption>span{font-size:11px;letter-spacing:.2px;white-space:nowrap}
+@media(max-width:1050px){
+  html[lang="en"] .home-copy{left:7vw;max-width:47%}
+  html[lang="en"] .home-copy h1{font-size:59px}
+  html[lang="en"] .home-copy p{font-size:12px;max-width:290px}
+  html[lang="en"] .magnet-text strong{font-size:28px}
+  html[lang="en"] .home-bottom,html[lang="en"] .home-footnote{left:7vw}
+  html[lang="en"] .page-heading h1,html[lang="en"] .corridor-heading h1{font-size:38px}
+  html[lang="en"] .date-jump{min-width:228px}
+}
+@media(max-width:700px){
+  html[lang="en"] .header{padding:0 5vw;gap:14px}
+  html[lang="en"] .brand{min-width:0;gap:6px}
+  html[lang="en"] .brand>span:last-child{font-size:21px;letter-spacing:0}
+  html[lang="en"] .header nav{gap:15px}
+  html[lang="en"] .header nav a{font-size:11px;letter-spacing:0}
+  html[lang="en"] .home-copy{left:8vw;max-width:85%;top:10%}
+  html[lang="en"] .home-copy h1{font-size:52px;letter-spacing:-1.7px;margin:17px 0 15px}
+  html[lang="en"] .home-copy h1 br{display:block}
+  html[lang="en"] .home-copy p{max-width:310px;font-size:12px;line-height:1.7}
+  html[lang="en"] .section-kicker{font-size:10px}
+  html[lang="en"] .magnet-zone{top:57%}
+  html[lang="en"] .magnet-text strong{font-size:27px}
+  html[lang="en"] .magnet-text small{font-size:9px}
+  html[lang="en"] .magnet-coordinate{font-size:9px;left:20px;right:7px}
+  html[lang="en"] .small-memories p{font-size:11px;margin-left:15px}
+  html[lang="en"] .home-bottom{left:8vw;right:8vw;bottom:78px}
+  html[lang="en"] .quiet-link{font-size:10px;gap:14px}
+  html[lang="en"] .home-footnote{left:8vw;font-size:9px}
+  html[lang="en"] .page-heading h1,html[lang="en"] .corridor-heading h1{font-size:34px}
+  html[lang="en"] .page-heading>p,html[lang="en"] .corridor-heading p{font-size:11px;letter-spacing:0}
+  html[lang="en"] .wheel-bottom-caption>span{font-size:18px}
+  html[lang="en"] .wheel-card-caption strong{font-size:10px}
+  html[lang="en"] .wheel-card-caption small{font-size:9px}
+  html[lang="en"] .wheel-footer .quiet-button{font-size:11px}
+  html[lang="en"] .date-jump{top:120px;min-width:220px}
+  html[lang="en"] .date-jump select{font-size:11px}
+  html[lang="en"] .corridor-date>span{font-size:31px}
+  html[lang="en"] .corridor-date small{font-size:10px}
+  html[lang="en"] .corridor-date p{font-size:10px}
+  html[lang="en"] .corridor-frame .frame-caption strong{font-size:10px}
+  html[lang="en"] .corridor-frame .frame-caption small{font-size:9px}
+  html[lang="en"] .corridor-footer small{font-size:8px}
+  html[lang="en"] .upload-left h2{font-size:28px}
+  html[lang="en"] .lightbox-caption{flex-direction:column;align-items:flex-start;gap:6px}
+  html[lang="en"] .lightbox-caption h2{font-size:19px}
+}
+@media(max-width:380px){
+  html[lang="en"] .brand>span:last-child{font-size:18px}
+  html[lang="en"] .brand-symbol{font-size:23px}
+  html[lang="en"] .header nav{gap:10px}
+  html[lang="en"] .header nav a{font-size:10px}
+  html[lang="en"] .home-copy h1{font-size:47px}
+}

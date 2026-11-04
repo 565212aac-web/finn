@@ -3,28 +3,28 @@ const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
 const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
 const escapeText = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const shortDate = value => value.replaceAll('-', '.');
+const shortDate = value => new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'short',year:'numeric'}).format(new Date(`${value}T12:00:00`));
 let photos = [
- { id:'lake', src:'assets/photo-0.jpg', title:'把时间，留在山水之间', date:'2026-10-25', places:['life','time'] },
- { id:'coffee', src:'assets/photo-1.jpg', title:'和朋友，把下午坐满', date:'2026-11-02', places:['life','time'] },
- { id:'flowers', src:'assets/photo-7.jpg', title:'路边的花，也在认真开', date:'2026-11-01', places:['life','time'] },
- { id:'sea', src:'assets/photo-2.jpg', title:'听海，把心事说完', date:'2026-10-18', places:['life','time'] },
- { id:'dog', src:'assets/photo-3.jpg', title:'今天，也有好好陪你', date:'2026-10-12', places:['life','time'] },
- { id:'night', src:'assets/photo-6.jpg', title:'晚一点回家的那条路', date:'2026-10-09', places:['life','time'] },
- { id:'me', src:'assets/photo-4.jpg', title:'给自己一点小小的奖励', date:'2026-09-28', places:['life','time'] },
- { id:'mountains', src:'assets/photo-5.jpg', title:'山很远，日子很近', date:'2026-09-17', places:['life','time'] }
+ { id:'lake', src:'assets/photo-0.jpg', title:'Where the water meets the sky', date:'2026-10-25', places:['life','time'] },
+ { id:'coffee', src:'assets/photo-1.jpg', title:'An afternoon over coffee', date:'2026-11-02', places:['life','time'] },
+ { id:'flowers', src:'assets/photo-7.jpg', title:'Flowers along the way', date:'2026-11-01', places:['life','time'] },
+ { id:'sea', src:'assets/photo-2.jpg', title:'A little time by the sea', date:'2026-10-18', places:['life','time'] },
+ { id:'dog', src:'assets/photo-3.jpg', title:'Another day beside you', date:'2026-10-12', places:['life','time'] },
+ { id:'night', src:'assets/photo-6.jpg', title:'The long way home', date:'2026-10-09', places:['life','time'] },
+ { id:'me', src:'assets/photo-4.jpg', title:'A small treat for myself', date:'2026-09-28', places:['life','time'] },
+ { id:'mountains', src:'assets/photo-5.jpg', title:'Mountains, close to the heart', date:'2026-09-17', places:['life','time'] }
 ];
 // Fictional capture dates/times demonstrate several moments on the same day.
 ['09:24','15:32','11:06','17:45','10:18','20:42','14:30','08:16'].forEach((time,i)=>photos[i].time=time);
 const extraPhotoTitles=[
- '开向未知的那一段路','站在山上，风刚好经过','在森林里走慢一点','天亮的时候，世界很安静',
- '第一次认真看见银河','湖面像一封蓝色的信','绕了一圈，都是好风景','走过一座安静的小桥',
- '把清晨留给山谷','日落之前，再站一会儿','过马路时抬头看了一眼','雨后的城市，有另一种颜色',
- '隔着水，看看城市','和朋友一起，等太阳下山','今天，也认真看见自己','聊到忘记时间的傍晚',
- '穿上喜欢的衣服出门','它在纸箱里安了家','家里的小小观察员','跑起来的时候，快乐很简单',
- '被摸摸头的一天','和绿植坐在一起喝咖啡','一桌咖啡，各有各的喜欢','看咖啡慢慢滴下来的时候',
- '醒来后，先给自己一杯','给自己做一顿认真早餐','今天的午餐，有很多颜色','把食材一份份摆好',
- '吃好一餐，也是在照顾自己','回家时，带了一束花'
+ 'The road ahead','A breeze on the summit','Slow steps through the woods','The quiet of first light',
+ 'My first glimpse of the stars','A letter in lake blue','A view around every bend','Across a quiet bridge',
+ 'Morning in the valley','A little longer before sunset','Looking up, just in time','The city after rain',
+ 'The city across the water','Waiting for sunset together','Seeing myself a little clearer','Talking until the evening fades',
+ 'Dressed for a good day','A home in a cardboard box','Our little observer','Happiness on the run',
+ 'A well-earned head pat','Coffee with the houseplants','A table full of favorites','Watching the coffee drip',
+ 'My first cup of the day','Breakfast, made with care','All the colors of lunch','A little kitchen ritual',
+ 'A good meal, a little care','Bringing flowers home'
 ];
 const extraTimes=[['07:12','08:08','09:35','11:20','12:46','14:18','17:32','21:16'],['06:18','07:22','09:04','12:33','15:20','17:40','18:12','20:31'],['08:10','09:25','10:46','12:10','14:38','16:05','18:22','21:40'],['08:30','10:15','12:24','15:12','18:45','20:08']];
 extraPhotoTitles.forEach((title,i)=>{
@@ -70,10 +70,10 @@ $('#magnet-button').addEventListener('blur',()=>tweenMagnet(0,0,0,0,true));
 
 // The photo wheel is a ring of real DOM photos. Pointer position controls angular speed.
 let wheelItems=[], wheelAngle=0, wheelVelocity=0, wheelRaf=0, wheelLast=0, wheelTween=null, wheelRect=null, activePhoto=-1;
-function stopWheel(){wheelVelocity=0;wheelTween=null;$('#wheel-motion').textContent='停留在这一刻';$('#mouse-marker').style.transform='translateX(0px)';$('#center-pause').style.opacity='.65';}
+function stopWheel(){wheelVelocity=0;wheelTween=null;$('#wheel-motion').textContent='Stay a while';$('#mouse-marker').style.transform='translateX(0px)';$('#center-pause').style.opacity='.65';}
 function buildWheel(){
   wheelItems=photos.filter(p=>p.places.includes('life'));
-  $('#wheel-photos').innerHTML=wheelItems.map(p=>`<button class="wheel-card" data-photo="${escapeText(p.id)}" aria-label="查看照片：${escapeText(p.title)}"><img src="${escapeText(p.src)}" alt="${escapeText(p.title)}" draggable="false"><span class="wheel-card-caption"><strong>${escapeText(p.title)}</strong><small>${shortDate(p.date).slice(5)}</small></span></button>`).join('');
+  $('#wheel-photos').innerHTML=wheelItems.map(p=>`<button class="wheel-card" data-photo="${escapeText(p.id)}" aria-label="View photo: ${escapeText(p.title)}"><img src="${escapeText(p.src)}" alt="${escapeText(p.title)}" draggable="false"><span class="wheel-card-caption"><strong>${escapeText(p.title)}</strong><small>${new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'short'}).format(new Date(`${p.date}T12:00:00`))}</small></span></button>`).join('');
   $('#wheel-total').textContent=String(wheelItems.length).padStart(2,'0');$('#wheel-empty').hidden=!!wheelItems.length;activePhoto=-1;paintWheel();
 }
 function wheelStep(){return 360/Math.max(1,wheelItems.length);}
@@ -110,7 +110,7 @@ $('#wheel-stage').addEventListener('mousemove',event=>{
   const deadZone=.17;
   if(Math.abs(normalized)<=deadZone){stopWheel();return;}
   wheelTween=null;wheelVelocity=-Math.sign(normalized)*((Math.abs(normalized)-deadZone)/(1-deadZone))*46*(wheelStep()/45);
-  $('#wheel-motion').textContent=normalized<0?'向左，翻动生活':'向右，翻动生活';$('#mouse-marker').style.transform=`translateX(${normalized*85}px)`;$('#center-pause').style.opacity='0';requestWheel();
+  $('#wheel-motion').textContent=normalized<0?'Turning left':'Turning right';$('#mouse-marker').style.transform=`translateX(${normalized*85}px)`;$('#center-pause').style.opacity='0';requestWheel();
 });
 $('#wheel-stage').addEventListener('mouseleave',stopWheel);
 $('#wheel-stage').addEventListener('focusin',stopWheel);
@@ -124,7 +124,7 @@ $('#wheel-stage').addEventListener('keydown',event=>{if(event.key==='ArrowLeft'|
 
 // Timeline: native page scrolling owns the camera, rather than an autoplay animation.
 let timeItems=[], timeSegments=[], timeFrames=[], camera=0, cameraTarget=0, timeRaf=0, timePairs=1, lastTimePair=-1;
-const dateLabel=date=>`${date.slice(0,4)}年${Number(date.slice(5,7))}月${Number(date.slice(8,10))}日`;
+const dateLabel=date=>shortDate(date);
 function buildCorridor(){
   timeItems=photos.filter(p=>p.places.includes('time')).sort((a,b)=>`${b.date}T${b.time||'00:00'}`.localeCompare(`${a.date}T${a.time||'00:00'}`));
   const days=new Map();timeItems.forEach(photo=>{if(!days.has(photo.date))days.set(photo.date,[]);days.get(photo.date).push(photo);});
@@ -137,8 +137,8 @@ function buildCorridor(){
     }
   }
   timePairs=Math.max(1,timeSegments.length);
-  $('#corridor-frames').innerHTML=timeFrames.map(({photo:p,ordinal,total})=>`<button class="corridor-frame" data-photo="${escapeText(p.id)}" aria-label="${dateLabel(p.date)} ${p.time||'12:00'}，${escapeText(p.title)}"><img src="${escapeText(p.src)}" alt="${escapeText(p.title)}" draggable="false"><time class="frame-stamp" datetime="${p.date}T${p.time||'12:00'}"><b>${p.time||'12:00'}</b><small>当天第 ${ordinal} / ${total} 个时刻</small></time><span class="frame-caption"><strong>${escapeText(p.title)}</strong><small>${shortDate(p.date)} · ${p.time||'12:00'}</small></span></button>`).join('');
-  $('#date-jump').innerHTML=Array.from(days,([date,list])=>`<option value="${date}">${dateLabel(date)} · ${list.length} 个时刻</option>`).join('');
+  $('#corridor-frames').innerHTML=timeFrames.map(({photo:p,ordinal,total})=>`<button class="corridor-frame" data-photo="${escapeText(p.id)}" aria-label="${dateLabel(p.date)} ${p.time||'12:00'}, ${escapeText(p.title)}"><img src="${escapeText(p.src)}" alt="${escapeText(p.title)}" draggable="false"><time class="frame-stamp" datetime="${p.date}T${p.time||'12:00'}"><b>${p.time||'12:00'}</b><small>Moment ${ordinal} / ${total}</small></time><span class="frame-caption"><strong>${escapeText(p.title)}</strong><small>${shortDate(p.date)} · ${p.time||'12:00'}</small></span></button>`).join('');
+  $('#date-jump').innerHTML=Array.from(days,([date,list])=>`<option value="${date}">${dateLabel(date)} · ${list.length} ${list.length===1?'moment':'moments'}</option>`).join('');
   fitCorridor();lastTimePair=-1;paintCorridor();
 }
 function fitCorridor(){const viewHeight=Math.max(600,innerHeight-parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header')));$('#time-page').style.height=`${viewHeight+Math.max(1,timePairs-1)*1150}px`;}
@@ -158,14 +158,14 @@ function paintCorridor(){
   if(pair!==lastTimePair){
     lastTimePair=pair;const segment=timeSegments[pair];
     if(segment){
-      const date=segment.date, weekday='日一二三四五六'[new Date(`${date}T12:00:00`).getDay()];
-      $('#corridor-month').textContent=`${Number(date.slice(5,7))}月${date.slice(8,10)}日`;
-      $('#corridor-year').textContent=`${date.slice(0,4)}年 · 星期${weekday}`;
+      const date=segment.date, weekday=new Intl.DateTimeFormat('en-GB',{weekday:'long'}).format(new Date(`${date}T12:00:00`));
+      $('#corridor-month').textContent=new Intl.DateTimeFormat('en-GB',{month:'short',day:'2-digit'}).format(new Date(`${date}T12:00:00`));
+      $('#corridor-year').textContent=`${date.slice(0,4)} · ${weekday}`;
       const end=segment.offset+segment.photos.length, range=end===segment.offset+1?`${end}`:`${segment.offset+1}–${end}`;
-      $('#corridor-day-count').textContent=`当天 ${segment.total} 个时刻 · 正在看第 ${range} 个`;
+      $('#corridor-day-count').textContent=`${segment.total} ${segment.total===1?'moment':'moments'} · Viewing ${range}`;
       $('#date-jump').value=date;
-    }else{$('#corridor-month').textContent='待续';$('#corridor-year').textContent='留下第一刻';$('#corridor-day-count').textContent='';}
-    $('#time-counter').textContent=`${String(pair+1).padStart(2,'0')} / ${String(timePairs).padStart(2,'0')} 组 · ${timeItems.length} 张照片`;
+    }else{$('#corridor-month').textContent='To be continued';$('#corridor-year').textContent='Your first moment';$('#corridor-day-count').textContent='';}
+    $('#time-counter').textContent=`${String(pair+1).padStart(2,'0')} / ${String(timePairs).padStart(2,'0')} groups · ${timeItems.length} photos`;
   }
 }
 addEventListener('scroll',onTimeScroll,{passive:true});
@@ -195,14 +195,14 @@ function closeUpload(){if($('#close-upload').disabled)return;pendingSelection++;
 $('#magnet-button').addEventListener('click',openUpload);document.querySelectorAll('[data-upload]').forEach(b=>b.addEventListener('click',openUpload));$('#close-upload').addEventListener('click',closeUpload);
 $('#upload-dialog').addEventListener('cancel',event=>{if($('#close-upload').disabled){event.preventDefault();return;}pendingSelection++;clearSelection();});
 $('#drop-area').addEventListener('click',()=>$('#photo-input').click());$('#replace-photo').addEventListener('click',()=>$('#photo-input').click());
-function showSelection(){if(!selectedPhotos.length)return;$('#upload-image').src=selectedPhotos[0].src;$('#upload-count').textContent=`已选 ${selectedPhotos.length} 张`;$('#drop-area').hidden=true;$('#upload-preview').hidden=false;}
+function showSelection(){if(!selectedPhotos.length)return;$('#upload-image').src=selectedPhotos[0].src;$('#upload-count').textContent=`${selectedPhotos.length} ${selectedPhotos.length===1?'photo':'photos'} selected`;$('#drop-area').hidden=true;$('#upload-preview').hidden=false;}
 async function acceptFiles(files){
   const selectionToken=++pendingSelection, candidates=Array.from(files);if(!candidates.length)return;
-  if(candidates.length>12){$('#photo-error').textContent='一次最多选择 12 张照片，请分批添加。';return;}
-  if(candidates.some(f=>!['image/jpeg','image/png','image/webp'].includes(f.type)||f.size>10*1024*1024)){$('#photo-error').textContent='请选择每张不超过 10 MB 的 JPG、PNG 或 WebP 照片。';return;}
-  $('#save-photo').disabled=true;$('#photo-error').textContent='正在读入照片…';const accepted=[];
+  if(candidates.length>12){$('#photo-error').textContent='Choose up to 12 photos at a time.';return;}
+  if(candidates.some(f=>!['image/jpeg','image/png','image/webp'].includes(f.type)||f.size>10*1024*1024)){$('#photo-error').textContent='Use JPG, PNG or WebP files, up to 10 MB each.';return;}
+  $('#save-photo').disabled=true;$('#photo-error').textContent='Reading your photos…';const accepted=[];
   try{
-    for(const file of candidates){const src=URL.createObjectURL(file);const img=new Image();try{img.src=src;await img.decode();}catch{URL.revokeObjectURL(src);throw Error('有照片无法读取，请重新选择。');}accepted.push({src,blob:file,temporary:true});}
+    for(const file of candidates){const src=URL.createObjectURL(file);const img=new Image();try{img.src=src;await img.decode();}catch{URL.revokeObjectURL(src);throw Error('A photo could not be read. Please choose another.');}accepted.push({src,blob:file,temporary:true});}
     if(selectionToken!==pendingSelection||!$('#upload-dialog').open){accepted.forEach(p=>URL.revokeObjectURL(p.src));return;}
     clearSelection();selectedPhotos=accepted;$('#photo-error').textContent='';showSelection();
   }catch(error){accepted.forEach(p=>URL.revokeObjectURL(p.src));if(selectionToken===pendingSelection)$('#photo-error').textContent=error.message;}
@@ -215,20 +215,20 @@ $('#use-example').addEventListener('click',()=>{pendingSelection++;clearSelectio
 $('#upload-form').addEventListener('submit',async event=>{
   event.preventDefault();let valid=true;
   if($('#save-photo').disabled)return;
-  if(!selectedPhotos.length){$('#photo-error').textContent='先选一张照片，或使用示例照片。';$('#drop-area').focus();valid=false;}
-  if(!$('#photo-date').value||!$('#photo-date').validity.valid||!$('#photo-time').value||!$('#photo-time').validity.valid){$('#date-error').textContent='请为照片选择有效的日期和时间。';valid=false;}else $('#date-error').textContent='';
+  if(!selectedPhotos.length){$('#photo-error').textContent='Choose a photo, or try the example.';$('#drop-area').focus();valid=false;}
+  if(!$('#photo-date').value||!$('#photo-date').validity.valid||!$('#photo-time').value||!$('#photo-time').validity.valid){$('#date-error').textContent='Please choose a valid date and time.';valid=false;}else $('#date-error').textContent='';
   if(!valid)return;
   const destination=new FormData($('#upload-form')).get('destination');if(!['life','time','both'].includes(destination))return;
-  const places=destination==='both'?['life','time']:[destination], title=$('#photo-title').value.trim()||'没有名字，也很好的一刻', date=$('#photo-date').value,time=$('#photo-time').value;
+  const places=destination==='both'?['life','time']:[destination], title=$('#photo-title').value.trim()||'A moment worth keeping', date=$('#photo-date').value,time=$('#photo-time').value;
   const createdAt=Date.now();
   const additions=selectedPhotos.map((photo,i)=>({id:`moment-${crypto.randomUUID()}`,src:photo.src,blob:photo.blob,createdAt:createdAt+i,date,time,title:selectedPhotos.length>1?`${title} · ${i+1}`:title,places:[...places]}));
   $('#save-photo').disabled=true;$('#close-upload').disabled=true;
   try{await momentStorage.add(additions.map(({src,...photo})=>photo.blob?photo:{...photo,src}));}
-  catch{$('#photo-error').textContent='没有保存成功，可能是浏览器存储已满或被禁用。请保留原照片后重试。';return;}
+  catch{$('#photo-error').textContent='Could not save. Browser storage may be full or disabled. Keep your originals and try again.';return;}
   finally{$('#save-photo').disabled=false;$('#close-upload').disabled=false;}
   photos.unshift(...additions);selectedPhotos=[];pendingSelection++;$('#upload-dialog').close();wheelAngle=0;camera=0;cameraTarget=0;stopWheel();buildWheel();buildCorridor();
   const next=destination==='time'?'time':'life';if(location.hash===`#${next}`)showPage();else location.hash=next;
-  toast(`已收好 ${additions.length} 张照片，放进${destination==='both'?'我的生活和时光足迹':destination==='time'?'时光足迹':'我的生活'}。`);
+  toast(`Saved ${additions.length} ${additions.length===1?'photo':'photos'} to ${destination==='both'?'My Life and Time Trail':destination==='time'?'Time Trail':'My Life'}.`);
 });
 document.addEventListener('click',event=>{const button=event.target.closest('[data-photo]');if(!button)return;const photo=photos.find(p=>p.id===button.dataset.photo);if(!photo)return;stopWheel();$('#lightbox-image').src=photo.src;$('#lightbox-image').alt=photo.title;$('#lightbox-title').textContent=photo.title;$('#lightbox-date').textContent=`${shortDate(photo.date)} · ${photo.time||'12:00'}`;$('#lightbox').showModal();});
 $('#close-lightbox').addEventListener('click',()=>$('#lightbox').close());
@@ -238,7 +238,7 @@ function showPage(){
   let next=location.hash.slice(1);if(!['home','life','time'].includes(next)){location.replace('#home');return;}
   page=next;stopWheel();cancelAnimationFrame(magnet.raf);magnet.raf=0;magnet.tween=null;[magnet.x,magnet.y,magnet.tx,magnet.ty]=[0,0,0,0];paintMagnet();wheelLast=0;
   document.querySelectorAll('.page').forEach(section=>{section.hidden=section.id!==`${page}-page`;section.classList.remove('page-enter');});document.querySelectorAll('[data-nav]').forEach(link=>{link.classList.toggle('active',link.dataset.nav===page);if(link.dataset.nav===page)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
-  scrollTo({top:0,behavior:'instant'});document.title=`拾光 · ${{home:'留下这一刻',life:'我的生活',time:'时光足迹'}[page]}`;
+  scrollTo({top:0,behavior:'instant'});document.title=`Shiguang · ${{home:'Keep a Moment',life:'My Life',time:'Time Trail'}[page]}`;
   const view=$(`#${page}-page`);if(!reducedMotion.matches)view.classList.add('page-enter');
   if(page==='life'){wheelRect=$('#wheel-stage').getBoundingClientRect();paintWheel();}
   if(page==='time'){camera=0;cameraTarget=0;lastTimePair=-1;fitCorridor();paintCorridor();$('#time-progress').value=0;$('#scroll-invitation').style.opacity='1';}
@@ -249,7 +249,7 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden){stopWheel(
 reducedMotion.addEventListener('change',()=>{stopWheel();magnet.tween=null;[magnet.x,magnet.y,magnet.tx,magnet.ty]=[0,0,0,0];paintMagnet();if(page==='life')paintWheel();if(page==='time')onTimeScroll();});
 async function restoreMoments(){
   try{const saved=await momentStorage.list();photos.unshift(...saved);}
-  catch{toast('浏览器存储不可用，示例仍可浏览，添加照片需要开启本地存储。');}
+  catch{toast('Browser storage is unavailable. You can still browse the examples.');}
   buildWheel();buildCorridor();showPage();
 }
 restoreMoments();
